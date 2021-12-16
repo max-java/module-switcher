@@ -1,14 +1,12 @@
 package com.tutrit.moduleswithcer.monolith;
 
 import com.tutrit.moduleswithcer.monolith.controller.cmd.CommandDispatcher;
-import com.tutrit.moduleswithcer.monolith.controller.cmd.PersonCmdController;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.util.Scanner;
-
+@EnableFeignClients
 @SpringBootApplication
 public class MonolithApplication {
 
