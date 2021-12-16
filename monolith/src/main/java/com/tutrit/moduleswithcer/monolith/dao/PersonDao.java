@@ -26,4 +26,8 @@ public class PersonDao {
         List<Person> person = jdbcTemplate.query(query, params, new BeanPropertyRowMapper<>(Person.class));
         return person.get(0);
     }
+
+    public NamedParameterJdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
 }
