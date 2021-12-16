@@ -1,11 +1,10 @@
 package com.tutrit.moduleswithcer.monolith.controller.cmd;
 
 import com.tutrit.moduleswithcer.monolith.service.PersonService;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConditionalOnProperty(prefix = "controller", name = "cmd")
+@EnableInConsoleCommands
 public class PersonCmdController {
 
     final PersonService personService;
@@ -14,13 +13,12 @@ public class PersonCmdController {
         this.personService = personService;
     }
 
-    public void getPerson(String[] args) {
-        try {
-            if("person/1".equals(args[0])) {
-                System.out.println(personService.findById(1L));
-            }
-        } catch (Exception e) {
-            System.out.println("Command not found Exception");
+    public void getPerson(String command) {
+        if ("person/1".equals(command)) {
+            System.out.println(personService.findById(1L));
+
+        } else {
+            System.out.println("Entity not found or bad command ");
         }
     }
 }

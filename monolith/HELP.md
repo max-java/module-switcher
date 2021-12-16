@@ -40,8 +40,10 @@ Rest and Mvc controllers are bind to the same endpoint - "/person/{id}": that is
 To switch between them, I use @ConditionalOnProperty(prefix = "controller", name = "type", havingValue = "mvc") annotation and 
 `controller.type` property in application.properties file. Remove annotation or change property value to see the difference. <br />
 Otherwise cmd controller: by omitting `havingValye` I got just feature toggle in application.properties that works 
-by setting true/false value on controller.cmd property. <br />
+by setting true/false value on controller.cmd property or completely removing it. <br />
 If @ConditionalOnProperty doesn't meet condition, Spring will not create a bean in the first place: that is common behavior you'd like to have.
+@EnableInConsoleCommands from cmd package is a good example of use of annotation inheritance: by placing 
+@ConditionalOnProperty on top of the annotation, I focus property settings for condition in one place (S of solid and DRY).
 
 
 
