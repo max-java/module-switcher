@@ -2,6 +2,9 @@ package com.tutrit.moduleswithcer.monolith.proxy;
 
 import com.tutrit.moduleswithcer.monolith.model.Person;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,14 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
  * so make sure you have rest type for that endpoint enabled in your application.properties file.
   */
 @RestController
+@EnableConfigurationProperties
 public class DummyController {
 
     PersonGateway personGateway;
-    @Value("${controller.type:none}")
     String controllerType;
 
-    public DummyController(PersonGateway personGateway) {
-        this.personGateway = personGateway;
+    public DummyController(ApplicationContext ctx,
+                           @Value("${controller.type:none}") String controllerType,
+                           @Value("${proxy.type:feignGateway}") String proxyType) {
+        this.controllerType = controllerType;
+        this.personGateway = (PersonGateway) ctx.getBean(proxyType);
     }
 
     @GetMapping(value = "/")

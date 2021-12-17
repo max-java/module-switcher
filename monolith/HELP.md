@@ -30,6 +30,8 @@ In /test/java/com/tutrit/moduleswithcer/monolith/dao, you'll find two tests with
 use MariaDB connection, because of @ActiveProfiles("mysql") the value for dbtype will be read from application-mysql.properties, and 
 witch is mysql, and then be used in PersonDao to get bean named "mysql" to inject JdbcTemplate. That proved by assertion value `maria`. 
 For postgre test it is `PostgreSQL`. Run tests and see the difference.
+It is possible to get connection metadata, such as db vendor, url, user, password, transaction isolation and number of active 
+connection from DataSource instance. That used to make an assertion for vendor of database PersonDao connected to. 
 
 ### service 
 Usually we have service layer between controller and dao. this one just passing forward value, nothing interesting.
@@ -43,7 +45,9 @@ Otherwise cmd controller: by omitting `havingValye` I got just feature toggle in
 by setting true/false value on controller.cmd property or completely removing it. <br />
 If @ConditionalOnProperty doesn't meet condition, Spring will not create a bean in the first place: that is common behavior you'd like to have.
 @EnableInConsoleCommands from cmd package is a good example of use of annotation inheritance: by placing 
-@ConditionalOnProperty on top of the annotation, I focus property settings for condition in one place (S of solid and DRY).
+@ConditionalOnProperty on top of the annotation, I concentrated property settings for condition in one place (S of solid and DRY).
+todo:// and adds alias for @Component
+### proxy
 
 
 
