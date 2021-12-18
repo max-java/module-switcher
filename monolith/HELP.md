@@ -46,8 +46,22 @@ by setting true/false value on controller.cmd property or completely removing it
 If @ConditionalOnProperty doesn't meet condition, Spring will not create a bean in the first place: that is common behavior you'd like to have.
 @EnableInConsoleCommands from cmd package is a good example of use of annotation inheritance: by placing 
 @ConditionalOnProperty on top of the annotation, I concentrated property settings for condition in one place (S of solid and DRY).
-todo:// and adds alias for @Component
+
 ### proxy
+By proxy I mean a class that helps make requests over http. I've created a DummyController just to make an endpoint to call
+proxy, and a PersonGateway in implementations of witch I can try different technologies to make calls overt http.
+To be independent of 3d party resources and keep this app simple, I'll call existed /person/{id} endpoint that returns Person from database,
+witch means that `rest`type should be enabled in application.properties.
 
+The same way as with dao, I gave names for ProxyGateway implementation beans and make them injectable by the name in DummyController.
+Feign implementation - is a technology very similar for SpringData and SpringWeb: we got an interface, and we just need 
+to declare endpoint and method with annotation, parameter to pass and type to retrieve - All other job encapsulated by Feign.
+Because of using interface I've wrapped it into implementation class PersonGatewayFeignImpl.
 
+RestTemplateImpl, otherwise, is needs developer configuration. That is why I've added RestTemplateConfig that returns RestTemplate bean
+without any additional configurations. Usually you would like to have separate RestTemplate beans for every http resource 
+with predefined configuration like baseUrl, headers, security tokens ect. 
 
+Like with Controllers or Dao, you'd rather prefer avoid creating unused beans by adding @ConditionalOnProperty annotation.
+This example aims to demonstrate possibility to inject different beans implementation based on bean name rather than type,
+and conditions of that injection could be easily moved from application.properties to some kind of runtime condition, even if it's rare and strange solution. 
