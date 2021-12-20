@@ -27,3 +27,4 @@ services:
       MYSQL_PASSWORD: password
     volumes:
       - ./initdb/init-maria.sql:/docker-entrypoint-initdb.d/init.sql
+
