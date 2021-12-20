@@ -31,10 +31,7 @@ use MariaDB connection, because of @ActiveProfiles("mysql") the value for dbtype
 witch is mysql, and then be used in PersonDao to get bean named "mysql" to inject JdbcTemplate. That proved by assertion value `maria`. 
 For postgre test it is `PostgreSQL`. Run tests and see the difference.
 It is possible to get connection metadata, such as db vendor, url, user, password, transaction isolation and number of active 
-connection from DataSource instance. That used to make an assertion for vendor of database PersonDao connected to. 
-
-### service 
-Usually we have service layer between controller and dao. this one just passing forward value, nothing interesting.
+connection from DataSource instance. That used to make an assertion for vendor of database PersonDao connected to.
 
 ### controller
 I have 3 controllers here: for rest, mvc, and console interaction. They have just one endpoint to get Person from database.
@@ -65,3 +62,8 @@ with predefined configuration like baseUrl, headers, security tokens ect.
 Like with Controllers or Dao, you'd rather prefer avoid creating unused beans by adding @ConditionalOnProperty annotation.
 This example aims to demonstrate possibility to inject different beans implementation based on bean name rather than type,
 and conditions of that injection could be easily moved from application.properties to some kind of runtime condition, even if it's rare and strange solution. 
+
+### service
+Usually service layer is a place where you will have all your business logic. From one side, it is controller that provides
+user input to service, from the other - it is dao that saves result of service work. As we don't do any kind of business work,
+this one just takes value and pass it forward, nothing interesting.
