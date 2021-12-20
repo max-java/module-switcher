@@ -8,6 +8,7 @@
         <module>mysql-dao</module>
         <module>psql-dao</module>
         <module>service</module>
+        <module>versioning</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
